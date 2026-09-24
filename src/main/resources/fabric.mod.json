@@ -3,16 +3,20 @@
   "id": "afkaway",
   "version": "${version}",
   "name": "AFK Away",
-  "description": "Permission-respecting client-side idle movement helper for single-player and explicitly allowlisted servers.",
+  "description": "Fabric AFK display protection and permission-gated idle movement for Minecraft 26.1.2.",
   "authors": [
     "nobothehobo"
   ],
   "contact": {
-    "sources": "https://github.com/nobothehobo/AFK-Away"
+    "sources": "https://github.com/nobothehobo/AFK-Away",
+    "issues": "https://github.com/nobothehobo/AFK-Away/issues"
   },
   "license": "MIT",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
+    "main": [
+      "dev.nobothehobo.afkaway.AfkAway"
+    ],
     "client": [
       "dev.nobothehobo.afkaway.AfkAwayClient"
     ]

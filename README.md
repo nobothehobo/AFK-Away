@@ -1,73 +1,85 @@
 # AFK Away
 
-A tiny Fabric client mod for Minecraft Java Edition **26.1.2** that performs a brief, visible forward/back movement pulse on a timer.
+AFK Away is a Fabric mod for **Minecraft Java Edition 26.1.2** designed for long passive waits such as crop growth or farms.
 
-## Important scope
+It has two pieces:
 
-AFK Away is intentionally **not a stealth or anti-detection mod**. It does not spoof packets, hide itself, bypass anti-cheat, or attempt to defeat a server's AFK policy.
+- a client-side dark, animated AFK overlay that avoids leaving a static Minecraft HUD/world on the display, and
+- a tiny forward/back idle movement pulse every 180 seconds.
 
-For safety, it runs automatically in:
+## Multiplayer permission model
 
-- single-player worlds, or
-- multiplayer servers that you explicitly add to the local allowlist and have permission to automate on.
+The movement pulse is intentionally not hidden from a server.
 
-On any other multiplayer server, the movement routine is blocked.
+- **Single-player:** movement works automatically.
+- **Multiplayer with only the client mod installed:** the display-protection overlay works, but automated movement is disabled.
+- **Multiplayer with AFK Away installed on the server:** the client asks the server for permission. Movement only runs when the server explicitly replies that it is allowed.
+
+This keeps the mod multiplayer-compatible without trying to disguise traffic or circumvent an AFK policy.
+
+### Server setup
+
+Install the same jar on the Fabric server. The first permission request creates:
+
+```text
+config/afk-away-server.properties
+```
+
+Its safe default is:
+
+```properties
+allowAutomatedMovement=false
+```
+
+A server owner who permits the feature can change it to:
+
+```properties
+allowAutomatedMovement=true
+```
+
+Restart the server after changing the setting.
 
 ## Controls
 
-- **F8** — toggle AFK Away for the current game session.
+- **F8** — toggle AFK Away.
 
-The default interval is 180 seconds. When the timer fires, the mod briefly walks forward and then backward so you end up close to the starting spot.
+When active, the client draws a near-black overlay with a slowly moving status line. The game continues running underneath. Press F8 again to return.
 
-The movement pulse only starts while you are on the ground and no menu is open.
+On Steam Deck, bind a rear paddle or another Steam Input button to **F8**.
 
-## Configuration
+## Movement
 
-On first launch, the mod creates:
+When movement is permitted, AFK Away waits 180 seconds, walks forward briefly, then backward for the same duration. It only starts a pulse while the player is alive, on the ground, and no menu is open.
 
+## Requirements
+
+- Minecraft Java Edition **26.1.2**
+- Java **25**
+- Fabric Loader **0.19.5+**
+- Fabric API **0.146.1+26.1.2** or a compatible newer 26.1.2 build
+
+Minecraft 26.1 uses Fabric's unobfuscated Mojang-name toolchain and Java 25. citeturn893418search0turn893418search4
+
+## Steam Deck / Linux
+
+There is no Windows-specific code. Install it like any Fabric jar in the instance's `mods` folder. For the vanilla launcher that is commonly:
+
+```text
+~/.minecraft/mods
 ```
-.minecraft/config/afk-away.properties
-```
 
-Example:
-
-```properties
-enabled=true
-intervalSeconds=180
-moveTicks=12
-allowedServers=localhost,127.0.0.1
-```
-
-`allowedServers` is a comma-separated list. Exact hostnames are accepted, with or without a port. Wildcards are deliberately unsupported.
-
-After editing the file, restart Minecraft.
-
-## Minecraft / Fabric target
-
-Minecraft 26.1 and later use Fabric's unobfuscated toolchain and Java 25. The project compiles against the 26.1 game/API surface and its mod metadata is locked to **Minecraft 26.1.2**. This avoids relying on the unavailable public `com.mojang:minecraft:26.1.2` Maven artifact while still targeting the 26.1.2 client.
-
-Requirements:
-
-- Minecraft Java Edition 26.1.2
-- Fabric Loader 0.19.5+
-- Fabric API
-- Java 25 for development/building
+Third-party launchers normally use a per-instance mods folder.
 
 ## Build
 
-If you have Gradle 9.5.1 and JDK 25 installed:
+GitHub Actions builds every push. With Java 25 and Gradle 9.6 installed locally:
 
 ```bash
 gradle build
 ```
 
-The jar will be in `build/libs/`.
+The mod jar is written to `build/libs/`.
 
-A GitHub Actions workflow is included and also uploads the built jar as a workflow artifact.
+## License
 
-## Installation
-
-1. Install Fabric Loader for Minecraft 26.1.2.
-2. Install the matching Fabric API.
-3. Put the AFK Away jar in your Minecraft `mods` folder.
-4. Launch the game.
+MIT
