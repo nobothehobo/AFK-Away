@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "afkaway",
+  "version": "${version}",
+  "name": "AFK Away",
+  "description": "Permission-respecting client-side idle movement helper for single-player and explicitly allowlisted servers.",
+  "authors": [
+    "nobothehobo"
+  ],
+  "contact": {
+    "sources": "https://github.com/nobothehobo/AFK-Away"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.nobothehobo.afkaway.AfkAwayClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "=26.1.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
