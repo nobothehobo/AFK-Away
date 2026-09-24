@@ -58,7 +58,7 @@ When movement is permitted, AFK Away waits 180 seconds, walks forward briefly, t
 - Fabric Loader **0.19.5+**
 - Fabric API **0.146.1+26.1.2** or a compatible newer 26.1.2 build
 
-Minecraft 26.1 uses Fabric's unobfuscated Mojang-name toolchain and Java 25. citeturn893418search0turn893418search4
+Minecraft 26.1 uses Fabric's unobfuscated Mojang-name toolchain and Java 25.
 
 ## Steam Deck / Linux
 
